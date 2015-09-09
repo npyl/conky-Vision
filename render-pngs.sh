@@ -28,13 +28,7 @@ fi
 for color in ${ICON_COLORS[*]}; do
 
 # Create dir with color name
-    ICONS_DIR=$color
-
-    if [ -z "$ICON_COLORS" ]; then
-        ICONS_DIR=$DEFAULT_COLOR
-    fi
-
-    mkdir -p $ICONS_DIR
+    mkdir -p $color
 
 
 # Trap sed
