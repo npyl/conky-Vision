@@ -53,7 +53,7 @@ for color in ${ICON_COLORS[*]}; do
         i2=${i##*/}  i2=${i2%.*}
 
         if [ -f $color/$i2.png ]; then
-                echo $color/$i2.png exists.
+            echo $color/$i2.png exists.
         else
             echo
             echo Rendering $color/$i2.png
