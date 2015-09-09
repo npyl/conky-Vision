@@ -11,10 +11,18 @@ DEFAULT_COLOR="#000000"
 #======================================
 #   User Input
 #======================================
-echo "Enter icon size (this is the width and height): "
+echo "Enter icon size (skip for default icon dimensions): "
 read SIZE
 echo "Enter 1 or more colors (space or tab separated): "
 read -a ICON_COLORS
+
+
+# If SIZE given, use for width & height
+# Otherwise, default dimensions used
+if [ ! -z "$SIZE" ]; then
+    SIZE="--export-width=$SIZE --export-height=$SIZE"
+fi
+
 
 # If no colors given, add default color to array
 if [ ${#ICON_COLORS[*]} -eq 0 ]; then
@@ -49,8 +57,7 @@ for color in ${ICON_COLORS[*]}; do
         else
             echo
             echo Rendering $color/$i2.png
-            $INKSCAPE --export-width=$SIZE \
-                      --export-height=$SIZE \
+            $INKSCAPE $SIZE \
                       --export-png=$color/$i2.png $i >/dev/null
         fi
     done
