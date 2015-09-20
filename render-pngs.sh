@@ -35,19 +35,19 @@ fi
 #======================================
 for color in ${ICON_COLORS[*]}; do
 
-# Create dir with color name
+    # Create dir with color name
     mkdir -p "$color"
 
 
-# Trap sed
-    trap "sed -i 's/<path fill=\"$color\"/<path/' $SOURCE; exit" INT TERM
+    # Trap sed
+    trap 'sed -i "s/<path fill=\"$color\"/<path/" $SOURCE; exit' INT TERM
 
 
-# Temporarily edit svg's
-    sed -i "s/<path/<path fill=\"$color\"/" "$SOURCE"
+    # Temporarily edit svg's
+    sed -i "s/<path/<path fill=\"$color\"/" $SOURCE
 
 
-# Loop through SVG folder & render png's
+    # Loop through SVG folder & render png's
     for i in SVG/*.svg
     do
         i2=${i##*/}  i2=${i2%.*}
@@ -57,14 +57,14 @@ for color in ${ICON_COLORS[*]}; do
         else
             echo
             echo Rendering "$color/$i2.png"
-            "$INKSCAPE" "$SIZE" \
+            $INKSCAPE "$SIZE" \
                       --export-png="$color/$i2.png" "$i" >/dev/null
         fi
     done
 
 
-# Revert edit of svg's before next iteration or EXIT
-    sed -i "s/<path fill=\"$color\"/<path/" "$SOURCE"
+    # Revert edit of svg's before next iteration or EXIT
+    sed -i "s/<path fill=\"$color\"/<path/" $SOURCE
 
 done
 exit 0
