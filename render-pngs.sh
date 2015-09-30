@@ -48,8 +48,7 @@ for color in ${ICON_COLORS[*]}; do
 
 
     # Loop through SVG folder & render png's
-    for i in SVG/*.svg
-    do
+    for i in SVG/*.svg; do
         i2=${i##*/}  i2=${i2%.*}
 
         if [ -f "$color/$i2.png" ]; then
