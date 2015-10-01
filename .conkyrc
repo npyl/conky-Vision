@@ -134,6 +134,7 @@ ${voffset 36}\
 ${goto 60}${execi 300 grep "yweather:condition" ~/.cache/weather.xml | grep -o "temp=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}°\
 ${font}${color}\
 \
+\
 #----------------------------------------
 #   High Temperatures
 #----------------------------------------
