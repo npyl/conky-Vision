@@ -1,7 +1,8 @@
-![preview](preview.png)
+###Vision :sunny: :umbrella: :cloud: :snowflake: :snowman:
 
+A theme for [conky](https://github.com/brndnmtthws/conky) version `1.9.x`.
 
-A conky theme that displays the **time**, **date**, **current** **weather**, and **forecast** for the next 4 days.
+It displays the **time**, **date**, **current** **weather**, and **forecast** for the next 4 days.
 
 ---
 
@@ -45,3 +46,7 @@ If you want to use a different language without changing your locale settings, e
 ###Temperature Unit
 
 To change the temp unit, edit the `template8` variable inside the `.conkyrc` file.
+
+---
+
+![preview](preview.png)
