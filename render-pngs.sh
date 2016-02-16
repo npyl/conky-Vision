@@ -5,6 +5,7 @@
 #======================================
 INKSCAPE="/usr/bin/inkscape"
 SOURCE="SVG/*.svg"
+PNG_DEST=".conky-vision-icons"
 DEFAULT_COLOR="#000000"
 
 
@@ -17,13 +18,6 @@ echo "Enter 1 or more colors (space or tab separated): "
 read -r -a ICON_COLORS
 
 
-# If SIZE given, use for width & height
-# Otherwise, default dimensions used
-if [ ! -z "$SIZE" ]; then
-    SIZE="--export-width=$SIZE --export-height=$SIZE"
-fi
-
-
 # If no colors given, add default color to array
 if [ ${#ICON_COLORS[*]} -eq 0 ]; then
     ICON_COLORS[0]="$DEFAULT_COLOR"
@@ -31,8 +25,10 @@ fi
 
 
 #======================================
-#   Loop through icon colors
+#   RENDER
 #======================================
+
+# Loop over colors
 for color in ${ICON_COLORS[*]}; do
 
     # Create dir with color name
@@ -48,7 +44,7 @@ for color in ${ICON_COLORS[*]}; do
 
 
     # Loop through SVG folder & render png's
-    for i in SVG/*.svg; do
+    for i in $SOURCE; do
         i2=${i##*/}  i2=${i2%.*}
 
         if [ -f "$color/$i2.png" ]; then
@@ -56,10 +52,15 @@ for color in ${ICON_COLORS[*]}; do
         else
             echo
             echo Rendering "$color/$i2.png"
-            $INKSCAPE "$SIZE" \
-                      --export-png="$color/$i2.png" "$i" >/dev/null
+            "$INKSCAPE"  -e "$color/$i2.png" "$i" > /dev/null \
+                         ${SIZE:+--export-width="$SIZE" --export-height="$SIZE"}
         fi
     done
+
+
+    # Inkscape doesn't work well with dir paths
+    # Move folder manually
+    mv "$color" "$PNG_DEST"
 
 
     # Revert edit of svg's before next iteration or EXIT
