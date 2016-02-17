@@ -1,6 +1,15 @@
 #! /bin/bash
 
 #======================================
+#   ANSI colors
+#======================================
+ansi_reset='\e[0m'
+blue='\e[34m'
+yellow_b='\e[1;33m'
+red_b='\e[1;31m'
+
+
+#======================================
 #   Global Variables
 #======================================
 INKSCAPE="/usr/bin/inkscape"
@@ -31,6 +40,13 @@ fi
 # Loop over colors
 for color in ${ICON_COLORS[*]}; do
 
+    # Check  whether the png folder already exits
+    if [ -d "$PNG_DEST/$color" ]; then
+        echo -e ${red_b}"$SOURCE/$color already exists!${ansi_reset}"
+        exit 0
+    fi
+
+
     # Create dir with color name
     mkdir -p "$color"
 
@@ -48,10 +64,10 @@ for color in ${ICON_COLORS[*]}; do
         i2=${i##*/}  i2=${i2%.*}
 
         if [ -f "$color/$i2.png" ]; then
-            echo "$color/$i2.png" exists.
+            echo -e "${red_b}$color/$i2.png exists.${ansi_reset}"
         else
             echo
-            echo Rendering "$color/$i2.png"
+            echo -e "${blue}Rendering ${yellow_b}$color/$i2.png${ansi_reset}"
             "$INKSCAPE"  -e "$color/$i2.png" "$i" > /dev/null \
                          ${SIZE:+--export-width="$SIZE" --export-height="$SIZE"}
         fi
