@@ -1,57 +1,71 @@
-#Attention
-This conky won't work until I find a suitable weather provider. See [this issue](https://github.com/zagortenay333/Harmattan/issues/12).
+###Vision :sunny: :umbrella: :cloud: :snowflake: :snowman:
+
+A theme for [conky](https://github.com/brndnmtthws/conky) version `1.9.x` powered by [OpenWeatherMap](http://openweathermap.org/).
+
+It displays the **time**, **date**, **current weather**, and **forecast** for the next 4 days.
 
 ---
 
-###Vision :sunny: :umbrella: :cloud: :snowflake: :snowman:
-
-A theme for [conky](https://github.com/brndnmtthws/conky) version `1.9.x`.
-
-It displays the **time**, **date**, **current** **weather**, and **forecast** for the next 4 days.
+* [Installation](#installation)
+* [API-key](#api-key)
+* [City](#city)
+* [Language](#language)
+* [Units](#units)
+* [Colors](#colors)
+* [Preview](#preview)
 
 ---
 
 ###Installation
 
-* Install **conky** and **curl**.
+* Install **conky**, **curl** and **jq**.
 
 * Install the [Poiret One](https://www.google.com/fonts/specimen/Poiret+One) font.
 
-* Move the `.conky-vision-icons` folder and `.conkyrc` file into your `~` dir.
+* Move the `.conky-vision-icons` folder & `.conkyrc` file into your `~` dir.
 
 **NOTE** some files/folders are hidden; unhide them. :smile:
 
 ---
 
+###API Key
+
+For now, you need to register a private API key on [OpenWeatherMap](http://openweathermap.org/) to get weather data.
+
+Place the API key in the `template6` variable inside the `.conkyrc`file.
+
+---
+
 ###City
 
-To change the city, edit the **WOEID** in the `template7` variable in the `.conkyrc` file.
+[Find the ID of your city](http://openweathermap.org/help/city_list.txt) and place it inside the `template7` variable inside the `.conkyrc` file.
 
 ---
 
 ###Language
 
-By default this conky will use your locale.
+By default this conky will use your default locale.
 
-If you want to use a different language without changing your locale settings, edit the `template9` variable in the `.conkyrc` file.
+Edit the `template9` variable in the `.conkyrc` file to change the language.
+
+---
+
+###Units
+
+Edit the `template8` variable inside the `.conkyrc` file to change the units.
 
 ---
 
 ###Colors
 
-* **Text** colors can be edited in the `.conkyrc` file.
+* Edit the `color` variables inside the `.conkyrc` file to change **text** color.
 
 * To change the **icon** colors, first use the `render-pngs.sh` script to render a folder of icons with the desired color, then change the icon sources in the `.conkyrc` file under the `Icon Sources` section.
     * The script uses the `SVG` folder to render png's.
 
-    * Keep the size at **32(px)** for this conky.
+    * You should keep the size at **32(px)** for this conky.
+
 
 ---
 
-###Temperature Unit
-
-To change the temp unit, edit the `template8` variable inside the `.conkyrc` file.
-
----
-
-![preview](preview.png)
+<img src="preview.png" id="preview">

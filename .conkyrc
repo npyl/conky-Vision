@@ -6,6 +6,11 @@ update_interval 1
 double_buffer yes
 no_buffers yes
 
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
 
 #====================================
 #   Window Specifications
@@ -22,21 +27,8 @@ own_window_type normal
 own_window_transparent yes
 own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
 
-#own_window_argb_visual yes
-#own_window_argb_value 0
-
-#border_margin 0
-#border_inner_margin 0
-#border_outer_margin 0
-
-
-#====================================
-#   Graphics Settings
-#====================================
-draw_shades no
-draw_outline no
-draw_borders no
-draw_graph_borders no
+own_window_argb_visual yes
+own_window_argb_value 255
 
 
 #====================================
@@ -65,29 +57,37 @@ color5 FFFFFF   # days
 #====================================
 #   Icon Sources
 #====================================
-template0 ~/.conky-vision-icons/FFFFFF  # today
-template1 ~/.conky-vision-icons/FFFFFF  # +1day
-template2 ~/.conky-vision-icons/FFFFFF  # +2days
-template3 ~/.conky-vision-icons/FFFFFF  # +3days
-template4 ~/.conky-vision-icons/FFFFFF  # +4days
+template0 ~/.conky-vision-icons/\#FFFFFF  # today
+template1 ~/.conky-vision-icons/\#FFFFFF  # +1day
+template2 ~/.conky-vision-icons/\#FFFFFF  # +2days
+template3 ~/.conky-vision-icons/\#FFFFFF  # +3days
+template4 ~/.conky-vision-icons/\#FFFFFF  # +4days
 
 
 #====================================
-#   WOEID (Where On Earth ID)
+#   API Key
 #====================================
-template7 44418
+template6
 
 
 #====================================
-#   Temp Unit (c = Celsius, f = Fahrenheit)
+#   City ID
 #====================================
-template8 c
+template7
 
 
 #====================================
-#   Language (e.g. es_ES.UTF-8)
+#   Temp Unit (default, metric, imperial)
 #====================================
-template9  # leave empty for locale
+template8 metric
+
+
+#====================================
+#   Locale (e.g. "es_ES.UTF-8")
+#   Leave empty for default
+#   Leave the quotes
+#====================================
+template9 ""
 
 
 ###################################################
@@ -100,7 +100,8 @@ TEXT
 #----------------------------------------
 \
 \
-# no weather provider for now :(
+${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/forecast/daily?APPID=${template6}&id=${template7}&cnt=5&units=${template8}&lang=$l" -o ~/.cache/forecast.json}\
+${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template6}&id=${template7}&cnt=5&units=${template8}&lang=$l" -o ~/.cache/weather.json}\
 \
 \
 #----------------------------------------
@@ -131,7 +132,7 @@ ${font}${color}
 \
 ${font Poiret One:size=18}${color2}\
 ${voffset 36}\
-${goto 60}${execi 300 grep "yweather:condition" ~/.cache/weather.xml | grep -o "temp=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}°\
+${goto 60}${execi 300 jq .main.temp ~/.cache/weather.json | awk '{print int($1+0.5)}' # round num}°\
 ${font}${color}\
 \
 \
@@ -141,13 +142,10 @@ ${font}${color}\
 \
 \
 ${font Poiret One:size=12}${color3}\
-${goto 164}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==2'}°\
-\
-${goto 272}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==3'}°\
-\
-${goto 378}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==4'}°\
-\
-${goto 484}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==5'}°\
+${goto 164}${execi 300 jq .list[1].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 272}${execi 300 jq .list[2].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 378}${execi 300 jq .list[3].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 484}${execi 300 jq .list[4].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
 ${font}${color}\
 \
 \
@@ -158,10 +156,10 @@ ${font}${color}\
 \
 ${font Poiret One:size=12}${color4}\
 ${voffset 52}\
-${goto 218}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==2'}°\
-${goto 324}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==3'}°\
-${goto 430}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==4'}°\
-${goto 536}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==5'}°\
+${goto 218}${execi 300 jq .list[1].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 324}${execi 300 jq .list[2].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 430}${execi 300 jq .list[3].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 536}${execi 300 jq .list[4].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
 ${font}${color}
 \
 \
@@ -185,12 +183,8 @@ ${font}${color}
 #----------------------------------------
 \
 \
-${execi 300 cp -f ${template0}/$(grep "yweather:condition" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*").png ~/.cache/weather-1.png}${image ~/.cache/weather-1.png -p 72,268 -s 32x32}\
-\
-${execi 300 cp -f ${template1}/$(grep "yweather:forecast" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==2').png ~/.cache/weather-2.png}${image ~/.cache/weather-2.png -p 178,268 -s 32x32}\
-\
-${execi 300 cp -f ${template2}/$(grep "yweather:forecast" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==3').png ~/.cache/weather-3.png}${image ~/.cache/weather-3.png -p 284,268 -s 32x32}\
-\
-${execi 300 cp -f ${template3}/$(grep "yweather:forecast" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==4').png ~/.cache/weather-4.png}${image ~/.cache/weather-4.png -p 390,268 -s 32x32}\
-\
-${execi 300 cp -f ${template4}/$(grep "yweather:forecast" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==5').png ~/.cache/weather-5.png}${image ~/.cache/weather-5.png -p 496,268 -s 32x32}\
+${execi 300 cp -f ${template0}/$(jq .weather[0].id ~/.cache/weather.json).png ~/.cache/current.png}${image ~/.cache/current.png -p 72,268 -s 32x32}\
+${execi 300 cp -f ${template1}/$(jq .list[1].weather[0].id ~/.cache/forecast.json).png ~/.cache/forecast-1.png}${image ~/.cache/forecast-1.png -p 178,268 -s 32x32}\
+${execi 300 cp -f ${template2}/$(jq .list[2].weather[0].id ~/.cache/forecast.json).png ~/.cache/forecast-2.png}${image ~/.cache/forecast-2.png -p 284,268 -s 32x32}\
+${execi 300 cp -f ${template3}/$(jq .list[3].weather[0].id ~/.cache/forecast.json).png ~/.cache/forecast-3.png}${image ~/.cache/forecast-3.png -p 390,268 -s 32x32}\
+${execi 300 cp -f ${template4}/$(jq .list[4].weather[0].id ~/.cache/forecast.json).png ~/.cache/forecast-4.png}${image ~/.cache/forecast-4.png -p 496,268 -s 32x32}\
