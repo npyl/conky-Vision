@@ -27,10 +27,17 @@ echo "Enter 1 or more colors (space or tab separated): "
 read -r -a ICON_COLORS
 
 
+#======================================
+#   Checks
+#======================================
+
 # If no colors given, add default color to array
 if [ ${#ICON_COLORS[*]} -eq 0 ]; then
     ICON_COLORS[0]="$DEFAULT_COLOR"
 fi
+
+# Ensure PNG_DEST
+mkdir -p "$PNG_DEST"
 
 
 #======================================
@@ -68,8 +75,8 @@ for color in ${ICON_COLORS[*]}; do
         else
             echo
             echo -e "${blue}Rendering ${yellow_b}$color/$i2.png${ansi_reset}"
-            "$INKSCAPE"  -e "$color/$i2.png" "$i" > /dev/null \
-                         ${SIZE:+--export-width="$SIZE" --export-height="$SIZE"}
+            "$INKSCAPE"  -e "$color/$i2.png" "$i" \
+                         ${SIZE:+--export-width="$SIZE" --export-height="$SIZE"} &> /dev/null
         fi
     done
 
