@@ -57,11 +57,11 @@ color5 FFFFFF   # days
 #====================================
 #   Icon Sources
 #====================================
-template0 ~/.conky-vision-icons/\#FFFFFF  # today
-template1 ~/.conky-vision-icons/\#FFFFFF  # +1day
-template2 ~/.conky-vision-icons/\#FFFFFF  # +2days
-template3 ~/.conky-vision-icons/\#FFFFFF  # +3days
-template4 ~/.conky-vision-icons/\#FFFFFF  # +4days
+template0 ~/.conky-vision-icons/\#fff__32  # today
+template1 ~/.conky-vision-icons/\#fff__32  # +1day
+template2 ~/.conky-vision-icons/\#fff__32  # +2days
+template3 ~/.conky-vision-icons/\#fff__32  # +3days
+template4 ~/.conky-vision-icons/\#fff__32  # +4days
 
 
 #====================================
