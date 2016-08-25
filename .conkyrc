@@ -17,14 +17,16 @@ draw_borders=false,
 -------------------------------------
 --  Window Specifications
 -------------------------------------
-gap_x=100,
-gap_y=70,
+gap_x=0,
+gap_y=0,
 
-minimum_height=390,
-minimum_width=268,
+alignment="middle_middle",
+
+minimum_height=400,
+minimum_width=600,
 
 own_window=true,
-own_window_type="normal",
+own_window_type="dock",
 own_window_transparent=true,
 own_window_hints="undecorated,below,sticky,skip_taskbar,skip_pager",
 
