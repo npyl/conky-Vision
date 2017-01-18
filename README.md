@@ -77,4 +77,4 @@ Edit the `template8` variable inside the `.conkyrc` file to change the units.
 
 ---
 
-<img src="preview.png" id="preview">
+<p align="center"><img src="preview.png" id="preview"></p>
