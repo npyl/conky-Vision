@@ -1,4 +1,4 @@
-###Vision :sunny: :umbrella: :cloud: :snowflake: :snowman:
+### Vision :sunny: :umbrella: :cloud: :snowflake: :snowman:
 
 A theme for [conky](https://github.com/brndnmtthws/conky) powered by [OpenWeatherMap](http://openweathermap.org/).
 
@@ -17,7 +17,7 @@ It displays the **time**, **date**, **current weather**, and **forecast** for th
 
 ---
 
-####Compatibility:
+#### Compatibility:
 
 The latest version of this theme is on the master branch, and it supports conky `1.10.x`.
 
@@ -25,7 +25,7 @@ For older versions, check the available [releases](../../releases).
 
 ---
 
-###Installation
+### Installation
 
 * Install **conky**, **curl** and **jq**.
 
@@ -37,7 +37,7 @@ For older versions, check the available [releases](../../releases).
 
 ---
 
-###API Key
+### API Key
 
 For now, you need to register a private API key on [OpenWeatherMap](http://openweathermap.org/) to get weather data.
 
@@ -45,13 +45,13 @@ Place the API key in the `template6` variable inside the `.conkyrc`file.
 
 ---
 
-###City
+### City
 
 [Find the ID of your city](http://openweathermap.org/help/city_list.txt) and place it inside the `template7` variable inside the `.conkyrc` file.
 
 ---
 
-###Language
+### Language
 
 By default this conky will use your default locale.
 
@@ -59,13 +59,13 @@ Edit the `template9` variable in the `.conkyrc` file to change the language.
 
 ---
 
-###Units
+### Units
 
 Edit the `template8` variable inside the `.conkyrc` file to change the units.
 
 ---
 
-###Colors
+### Colors
 
 * Edit the `color` variables inside the `.conkyrc` file to change **text** color.
 
