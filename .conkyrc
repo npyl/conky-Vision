@@ -76,13 +76,13 @@ template6="",
 -------------------------------------
 --  City ID
 -------------------------------------
-template7="",
+template7="", -- City, Country
 
 
 -------------------------------------
 --  Temp Unit (default, metric, imperial)
 -------------------------------------
-template8="metric",
+template8="",
 
 
 -------------------------------------
@@ -103,8 +103,8 @@ conky.text = [[
 \
 \
 \
-${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/forecast/daily?APPID=${template6}&id=${template7}&cnt=5&units=${template8}&lang=$l" -o ~/.cache/forecast.json}\
-${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template6}&id=${template7}&cnt=5&units=${template8}&lang=$l" -o ~/.cache/weather.json}\
+${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/forecast?APPID=${template6}&id=${template7}&cnt=5&units=${template8}&lang=$l" -o ~/.cache/conky-vision/forecast.json}\
+${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template6}&id=${template7}&cnt=5&units=${template8}&lang=$l" -o ~/.cache/conky-vision/weather.json}\
 \
 \
 \
@@ -126,17 +126,17 @@ ${font}${color}
 \
 ${font Poiret One:size=18}${color2}\
 ${voffset 36}\
-${goto 60}${execi 300 jq .main.temp ~/.cache/weather.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 60}${execi 300 jq .main.temp ~/.cache/conky-vision/weather.json | awk '{print int($1+0.5)}' # round num}°\
 ${font}${color}\
 \
 \
 \
 \
 ${font Poiret One:size=12}${color3}\
-${goto 164}${execi 300 jq .list[1].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
-${goto 272}${execi 300 jq .list[2].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
-${goto 378}${execi 300 jq .list[3].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
-${goto 484}${execi 300 jq .list[4].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 164}${execi 300 jq .list[1].main.temp_max ~/.cache/conky-vision/forecast.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 272}${execi 300 jq .list[2].main.temp_max ~/.cache/conky-vision/forecast.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 378}${execi 300 jq .list[3].main.temp_max ~/.cache/conky-vision/forecast.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 484}${execi 300 jq .list[4].main.temp_max ~/.cache/conky-vision/forecast.json | awk '{print int($1+0.5)}' # round num}°\
 ${font}${color}\
 \
 \
@@ -144,10 +144,10 @@ ${font}${color}\
 \
 ${font Poiret One:size=12}${color4}\
 ${voffset 52}\
-${goto 218}${execi 300 jq .list[1].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
-${goto 324}${execi 300 jq .list[2].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
-${goto 430}${execi 300 jq .list[3].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
-${goto 536}${execi 300 jq .list[4].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 218}${execi 300 jq .list[1].main.temp_min ~/.cache/conky-vision/forecast.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 324}${execi 300 jq .list[2].main.temp_min ~/.cache/conky-vision/forecast.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 430}${execi 300 jq .list[3].main.temp_min ~/.cache/conky-vision/forecast.json | awk '{print int($1+0.5)}' # round num}°\
+${goto 536}${execi 300 jq .list[4].main.temp_min ~/.cache/conky-vision/forecast.json | awk '{print int($1+0.5)}' # round num}°\
 ${font}${color}
 \
 \
@@ -165,9 +165,9 @@ ${font}${color}
 \
 \
 \
-${execi 300 cp -f ${template0}/$(jq .weather[0].id ~/.cache/weather.json).png ~/.cache/current.png}${image ~/.cache/current.png -p 72,268 -s 32x32}\
-${execi 300 cp -f ${template1}/$(jq .list[1].weather[0].id ~/.cache/forecast.json).png ~/.cache/forecast-1.png}${image ~/.cache/forecast-1.png -p 178,268 -s 32x32}\
-${execi 300 cp -f ${template2}/$(jq .list[2].weather[0].id ~/.cache/forecast.json).png ~/.cache/forecast-2.png}${image ~/.cache/forecast-2.png -p 284,268 -s 32x32}\
-${execi 300 cp -f ${template3}/$(jq .list[3].weather[0].id ~/.cache/forecast.json).png ~/.cache/forecast-3.png}${image ~/.cache/forecast-3.png -p 390,268 -s 32x32}\
-${execi 300 cp -f ${template4}/$(jq .list[4].weather[0].id ~/.cache/forecast.json).png ~/.cache/forecast-4.png}${image ~/.cache/forecast-4.png -p 496,268 -s 32x32}\
+${execi 300 cp -f ${template0}/$(jq .weather[0].id ~/.cache/conky-vision/weather.json).png ~/.cache/conky-vision/current.png}${image ~/.cache/conky-vision/current.png -p 72,268 -s 32x32}\
+${execi 300 cp -f ${template1}/$(jq .list[1].weather[0].id ~/.cache/conky-vision/forecast.json).png ~/.cache/conky-vision/forecast-1.png}${image ~/.cache/conky-vision/forecast-1.png -p 178,268 -s 32x32}\
+${execi 300 cp -f ${template2}/$(jq .list[2].weather[0].id ~/.cache/conky-vision/forecast.json).png ~/.cache/conky-vision/forecast-2.png}${image ~/.cache/conky-vision/forecast-2.png -p 284,268 -s 32x32}\
+${execi 300 cp -f ${template3}/$(jq .list[3].weather[0].id ~/.cache/conky-vision/forecast.json).png ~/.cache/conky-vision/forecast-3.png}${image ~/.cache/conky-vision/forecast-3.png -p 390,268 -s 32x32}\
+${execi 300 cp -f ${template4}/$(jq .list[4].weather[0].id ~/.cache/conky-vision/forecast.json).png ~/.cache/conky-vision/forecast-4.png}${image ~/.cache/conky-vision/forecast-4.png -p 496,268 -s 32x32}\
 ]]
