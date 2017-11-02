@@ -6,17 +6,6 @@ It displays the **time**, **date**, **current weather**, and **forecast** for th
 
 ---
 
-* [Compatibility](#compatibility)
-* [Installation](#installation)
-* [API-key](#api-key)
-* [City](#city)
-* [Language](#language)
-* [Units](#units)
-* [Colors](#colors)
-* [Preview](#preview)
-
----
-
 #### Compatibility:
 
 The latest version of this theme is on the master branch, and it supports conky `1.10.x`.
@@ -27,11 +16,13 @@ For older versions, check the available [releases](../../releases).
 
 ### Installation
 
+You can run the `install` script, or you can do it manually:
+
 * Install **conky**, **curl** and **jq**.
 
 * Install the [Poiret One](https://www.google.com/fonts/specimen/Poiret+One) font.
 
-* Move the `.conky-vision-icons` folder & `.conkyrc` file into your `~` dir.
+* Move the `.conky-vision` folder & `.conkyrc` file into your `~` dir.
 
 **NOTE** some files/folders are hidden; unhide them. :smile:
 
