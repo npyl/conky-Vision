@@ -8,6 +8,8 @@ sleep 2
 forecast=~/".cache/conky-vision/forecast.json"
 weather=~/".cache/conky-vision/weather.json"
 
+mkdir -p ~/".cache/conky-vision"
+
 api_prefix="api.openweathermap.org/data/2.5/"
 
 appid="APPID=$1"
