@@ -1,4 +1,9 @@
 #!/bin/bash
+
+#Avoid errors on printf with systems with a locale that use the comma instead of
+#the dot for floats
+LANG=C
+
 set -eu
 
 forecast=~/".cache/conky-vision/forecast.json"
