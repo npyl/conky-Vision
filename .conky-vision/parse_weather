@@ -76,7 +76,7 @@ get_avg_property () {
 
     [[ $res == "null" ]] && echo $res && return
 
-    LC_NUMERIC=C printf %.0f $res
+    LANG=C printf %.0f $res
 }
 
 # Certain values cannot be averaged (e.g., the weather description).
@@ -94,7 +94,7 @@ get_first_property () {
 
     [[ $res == "null" ]] && echo $res && return
 
-    LC_NUMERIC=C printf %.0f $res
+    LANG=C printf %.0f $res
 }
 
 main () {
