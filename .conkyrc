@@ -132,10 +132,10 @@ ${font}${color}\
 \
 \
 ${font Poiret One:size=12}${color3}\
-${goto 164}${execi 300 ~/.conky-vision/parse_weather 'avg' '.main.temp_max' '1'}°\
-${goto 272}${execi 300 ~/.conky-vision/parse_weather 'avg' '.main.temp_max' '2'}°\
-${goto 378}${execi 300 ~/.conky-vision/parse_weather 'avg' '.main.temp_max' '3'}°\
-${goto 484}${execi 300 ~/.conky-vision/parse_weather 'avg' '.main.temp_max' '4'}°\
+${goto 164}${execi 300 ~/.conky-vision/parse_weather 'max' '.main.temp' '1'}°\
+${goto 272}${execi 300 ~/.conky-vision/parse_weather 'max' '.main.temp' '2'}°\
+${goto 378}${execi 300 ~/.conky-vision/parse_weather 'max' '.main.temp' '3'}°\
+${goto 484}${execi 300 ~/.conky-vision/parse_weather 'max' '.main.temp' '4'}°\
 ${font}${color}\
 \
 \
@@ -143,10 +143,10 @@ ${font}${color}\
 \
 ${font Poiret One:size=12}${color4}\
 ${voffset 52}\
-${goto 218}${execi 300 ~/.conky-vision/parse_weather 'avg' '.main.temp_min' '1'}°\
-${goto 324}${execi 300 ~/.conky-vision/parse_weather 'avg' '.main.temp_min' '2'}°\
-${goto 430}${execi 300 ~/.conky-vision/parse_weather 'avg' '.main.temp_min' '3'}°\
-${goto 536}${execi 300 ~/.conky-vision/parse_weather 'avg' '.main.temp_min' '4'}°\
+${goto 218}${execi 300 ~/.conky-vision/parse_weather 'min' '.main.temp' '1'}°\
+${goto 324}${execi 300 ~/.conky-vision/parse_weather 'min' '.main.temp' '2'}°\
+${goto 430}${execi 300 ~/.conky-vision/parse_weather 'min' '.main.temp' '3'}°\
+${goto 536}${execi 300 ~/.conky-vision/parse_weather 'min' '.main.temp' '4'}°\
 ${font}${color}
 \
 \

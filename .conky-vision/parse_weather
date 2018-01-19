@@ -79,6 +79,88 @@ get_avg_property () {
     LC_NUMERIC=C printf %.0f $res
 }
 
+get_min_property () {
+    local res=0
+
+    local prop="$1"
+    local day="$2"
+
+    local idx
+    idx=$(find_position "$day")
+
+    local time=0
+
+    local i=0
+
+    local outarray=()
+
+    while true; do
+        [[ $time == "null" ]] && break
+
+        outarray[$i]="$(jq ".list[$idx]$prop" "$forecast")"
+
+        (( i++ ))
+        (( idx++ ))
+
+        time=$(get_time "$idx")
+
+        # The records for every 3 hours are dumped in an array with no
+        # indication to which day they belong.
+        # The first record of each day (except today) is calculated at time
+        # '00:00:00', so we use that to know when a new day starts.
+        [[ $time == "00:00:00" ]] && break
+    done
+
+    IFS=$'\n'
+    res=($(sort <<<"${outarray[*]}" | head))
+    unset IFS
+
+    [[ $res == "null" ]] && echo $res && return
+
+    LC_NUMERIC=C printf %.0f $res
+}
+
+get_max_property () {
+    local res=0
+
+    local prop="$1"
+    local day="$2"
+
+    local idx
+    idx=$(find_position "$day")
+
+    local time=0
+
+    local i=0
+
+    local outarray=()
+
+    while true; do
+        [[ $time == "null" ]] && break
+
+        outarray[$i]="$(jq ".list[$idx]$prop" "$forecast")"
+
+        (( i++ ))
+        (( idx++ ))
+
+        time=$(get_time "$idx")
+
+        # The records for every 3 hours are dumped in an array with no
+        # indication to which day they belong.
+        # The first record of each day (except today) is calculated at time
+        # '00:00:00', so we use that to know when a new day starts.
+        [[ $time == "00:00:00" ]] && break
+    done
+    IFS=$'\n'
+    res=($(sort -r <<<"${outarray[*]}" | head))
+
+    unset IFS
+
+    [[ $res == "null" ]] && echo $res && return
+
+    LC_NUMERIC=C printf %.0f $res
+}
+
 # Certain values cannot be averaged (e.g., the weather description).
 # In that case we just use the value from the first record for that day.
 get_first_property () {
@@ -105,6 +187,10 @@ main () {
 
     if [[ $type == "avg" ]] ; then
         echo "$(get_avg_property "$2" "$3")"
+    elif [[ $type == "min" ]] ; then
+        echo "$(get_min_property "$2" "$3")"
+    elif [[ $type == "max" ]] ; then
+        echo "$(get_max_property "$2" "$3")"
     elif [[ $type == "first" ]] ; then
         echo "$(get_first_property "$2" "$3")"
     fi
