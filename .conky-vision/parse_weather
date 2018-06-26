@@ -112,7 +112,7 @@ get_min_property () {
     done
 
     IFS=$'\n'
-    res=($(sort <<<"${outarray[*]}" | head))
+    res=($(sort -n<<<"${outarray[*]}" | head -n1))
     unset IFS
 
     [[ $res == "null" ]] && echo $res && return
@@ -152,7 +152,7 @@ get_max_property () {
         [[ $time == "00:00:00" ]] && break
     done
     IFS=$'\n'
-    res=($(sort -r <<<"${outarray[*]}" | head))
+    res=($(sort -nr <<<"${outarray[*]}" | head -n1))
 
     unset IFS
 
